@@ -1,0 +1,727 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Creator Prompt Shop - Product Details</title>
+  <meta property="og:image" content="https://bolt.new/static/og_default.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+  <style>
+    /* Product Detail Specific Styles */
+    .product-detail {
+      padding-top: 40px;
+    }
+
+    .breadcrumb {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 40px;
+      font-size: 0.9375rem;
+    }
+
+    .breadcrumb a {
+      color: var(--muted);
+      transition: color 0.3s ease;
+    }
+
+    .breadcrumb a:hover {
+      color: var(--text);
+    }
+
+    .breadcrumb-divider {
+      color: var(--muted);
+    }
+
+    .product-header {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      margin-bottom: 80px;
+      align-items: start;
+    }
+
+    .product-image-container {
+      position: relative;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      aspect-ratio: 1;
+      background: rgba(10, 10, 10, 0.04);
+    }
+
+    .product-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .product-badge {
+      position: absolute;
+      top: 24px;
+      right: 24px;
+      background: var(--accent);
+      color: var(--inverse);
+      padding: 8px 16px;
+      border-radius: 50px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .product-info {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      position: sticky;
+      top: 120px;
+    }
+
+    .product-category {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      width: fit-content;
+    }
+
+    .product-title {
+      font-size: clamp(2rem, 4vw, 2.5rem);
+      font-weight: 700;
+      line-height: 1.2;
+      color: var(--text);
+      margin: 0;
+    }
+
+    .product-rating {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.9375rem;
+    }
+
+    .stars {
+      display: flex;
+      gap: 4px;
+    }
+
+    .star {
+      color: #FFB800;
+      font-size: 1rem;
+    }
+
+    .review-count {
+      color: var(--muted);
+    }
+
+    .product-price {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .price-original {
+      font-size: 1.25rem;
+      color: var(--muted);
+      text-decoration: line-through;
+    }
+
+    .price-save {
+      font-size: 0.875rem;
+      color: #D4633B;
+      background: rgba(212, 99, 59, 0.1);
+      padding: 4px 8px;
+      border-radius: var(--radius-sm);
+    }
+
+    .product-description {
+      line-height: 1.8;
+      color: var(--muted);
+      font-size: 1.0625rem;
+    }
+
+    .product-features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .product-features li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      color: var(--muted);
+      font-size: 1rem;
+    }
+
+    .feature-icon {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: rgba(10, 10, 10, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+      font-size: 0.75rem;
+      color: var(--text);
+    }
+
+    .product-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding-top: 12px;
+    }
+
+    .btn-add-cart {
+      padding: 16px 32px;
+      font-size: 1rem;
+      font-weight: 600;
+      background: var(--accent);
+      color: var(--inverse);
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      width: 100%;
+    }
+
+    .btn-add-cart:hover {
+      background: var(--accent-hover);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .btn-wishlist {
+      padding: 16px 32px;
+      font-size: 1rem;
+      font-weight: 600;
+      background: transparent;
+      color: var(--text);
+      border: 2px solid var(--accent);
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      width: 100%;
+    }
+
+    .btn-wishlist:hover {
+      background: var(--accent);
+      color: var(--inverse);
+    }
+
+    .product-meta {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      padding: 20px;
+      background: rgba(10, 10, 10, 0.04);
+      border-radius: var(--radius-sm);
+      margin-top: 12px;
+    }
+
+    .meta-item {
+      font-size: 0.9375rem;
+    }
+
+    .meta-label {
+      color: var(--muted);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .meta-value {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    /* Tabs Section */
+    .product-tabs {
+      margin-top: 80px;
+      border-top: 1px solid rgba(10, 10, 10, 0.08);
+      padding-top: 48px;
+    }
+
+    .tab-buttons {
+      display: flex;
+      gap: 32px;
+      margin-bottom: 32px;
+      border-bottom: 1px solid rgba(10, 10, 10, 0.08);
+      padding-bottom: 16px;
+    }
+
+    .tab-button {
+      background: none;
+      border: none;
+      padding: 12px 0;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--muted);
+      cursor: pointer;
+      transition: color 0.3s ease;
+      position: relative;
+    }
+
+    .tab-button.active {
+      color: var(--text);
+    }
+
+    .tab-button.active::after {
+      content: '';
+      position: absolute;
+      bottom: -16px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--text);
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    .tab-content h3 {
+      margin-bottom: 16px;
+    }
+
+    .tab-content p {
+      margin-bottom: 16px;
+    }
+
+    .tab-content ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .tab-content li {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .tab-content li::before {
+      content: '→';
+      color: var(--text);
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+
+    /* Related Products Section */
+    .related-products {
+      margin-top: 80px;
+      padding-top: 80px;
+      border-top: 1px solid rgba(10, 10, 10, 0.08);
+    }
+
+    .related-products h2 {
+      margin-bottom: 48px;
+    }
+
+    .related-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 32px;
+    }
+
+    .related-card {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      background: var(--inverse);
+      border: 1px solid rgba(10, 10, 10, 0.08);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+    }
+
+    .related-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .related-card-image {
+      width: 100%;
+      aspect-ratio: 1;
+      object-fit: cover;
+      display: block;
+      background: rgba(10, 10, 10, 0.04);
+    }
+
+    .related-card-content {
+      padding: 24px;
+    }
+
+    .related-card-category {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .related-card-title {
+      font-size: 1.125rem;
+      font-weight: 600;
+      margin-bottom: 12px;
+      line-height: 1.4;
+    }
+
+    .related-card-price {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .related-card-cta {
+      width: 100%;
+      padding: 12px;
+      background: var(--accent);
+      color: var(--inverse);
+      border: none;
+      border-radius: 50px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .related-card-cta:hover {
+      background: var(--accent-hover);
+      transform: scale(1.02);
+    }
+
+    @media (max-width: 768px) {
+      .product-header {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+
+      .product-info {
+        position: static;
+      }
+
+      .product-meta {
+        grid-template-columns: 1fr;
+      }
+
+      .tab-buttons {
+        gap: 16px;
+        overflow-x: auto;
+      }
+
+      .related-grid {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav>
+    <div class="container">
+      <div class="nav-content">
+        <div class="nav-logo">Creator Prompt Shop</div>
+        <button class="hamburger" aria-label="Toggle menu" aria-expanded="false">
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+        </button>
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="toolkits.html">Shop</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+        <a href="toolkits.html" class="nav-cta">Browse toolkits</a>
+      </div>
+    </div>
+  </nav>
+  <div class="nav-overlay"></div>
+
+  <!-- Product Detail -->
+  <section class="product-detail">
+    <div class="container">
+      <!-- Breadcrumb -->
+      <nav class="breadcrumb">
+        <a href="index.html">Home</a>
+        <span class="breadcrumb-divider">/</span>
+        <a href="toolkits.html">Toolkits</a>
+        <span class="breadcrumb-divider">/</span>
+        <span class="breadcrumb-current">Product</span>
+      </nav>
+
+      <!-- Product Header -->
+      <div class="product-header">
+        <!-- Product Image -->
+        <div class="product-image-container">
+          <img src="https://rvosqmvsgmcuaujkphhr.supabase.co/storage/v1/object/public/SUITCASE/ALL%20TOOLS/86f28183-a6a3-4544-b6ab-618c0d9377cd%20(1)_4096x3058.png" alt="Product" class="product-image">
+          <span class="product-badge">NEW</span>
+        </div>
+
+        <!-- Product Info -->
+        <div class="product-info">
+          <span class="product-category">Premium Toolkit</span>
+          
+          <h1 class="product-title">Image Generation Toolkit</h1>
+          
+          <div class="product-rating">
+            <div class="stars">
+              <span class="star">★</span>
+              <span class="star">★</span>
+              <span class="star">★</span>
+              <span class="star">★</span>
+              <span class="star">★</span>
+            </div>
+            <span class="review-count">(427 reviews)</span>
+          </div>
+
+          <div class="product-price">
+            <span>$49.00</span>
+            <span class="price-original">$79.00</span>
+            <span class="price-save">Save 38%</span>
+          </div>
+
+          <p class="product-description">
+            Master the art of AI-generated visuals with our comprehensive Image Generation Toolkit. Get access to 50+ structured prompts, advanced techniques, and proven workflows used by professional creators worldwide.
+          </p>
+
+          <ul class="product-features">
+            <li>
+              <div class="feature-icon">✓</div>
+              <span>50+ ready-to-use image prompts</span>
+            </li>
+            <li>
+              <div class="feature-icon">✓</div>
+              <span>Advanced styling & composition guides</span>
+            </li>
+            <li>
+              <div class="feature-icon">✓</div>
+              <span>Step-by-step workflow templates</span>
+            </li>
+            <li>
+              <div class="feature-icon">✓</div>
+              <span>Quality assurance checklists</span>
+            </li>
+            <li>
+              <div class="feature-icon">✓</div>
+              <span>Lifetime access & updates</span>
+            </li>
+          </ul>
+
+          <div class="product-actions">
+            <button class="btn-add-cart">Add to Cart</button>
+            <button class="btn-wishlist">♡ Add to Wishlist</button>
+          </div>
+
+          <div class="product-meta">
+            <div class="meta-item">
+              <span class="meta-label">Delivery</span>
+              <span class="meta-value">Instant Access</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">Updates</span>
+              <span class="meta-value">Lifetime Free</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">Support</span>
+              <span class="meta-value">Email Support</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">Satisfaction</span>
+              <span class="meta-value">30-Day Guarantee</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tabs Section -->
+      <div class="product-tabs">
+        <div class="tab-buttons">
+          <button class="tab-button active" data-tab="details">Details</button>
+          <button class="tab-button" data-tab="features">What's Inside</button>
+          <button class="tab-button" data-tab="faqs">FAQs</button>
+          <button class="tab-button" data-tab="reviews">Reviews</button>
+        </div>
+
+        <!-- Details Tab -->
+        <div class="tab-content active" id="details">
+          <h3>About This Toolkit</h3>
+          <p>The Image Generation Toolkit is designed for creators who want professional results from AI image generators. Whether you're working with Midjourney, DALL-E, Stable Diffusion, or other tools, this toolkit provides the structured approach you need to consistently generate stunning visuals.</p>
+          <p>Stop wasting time on trial and error. Our proven prompts and workflows have been refined by hundreds of creators and tested across dozens of image generation platforms.</p>
+          
+          <h3 style="margin-top: 32px;">Perfect For</h3>
+          <ul>
+            <li>Content creators looking for visual inspiration</li>
+            <li>Designers wanting to accelerate their workflow</li>
+            <li>Marketers building social media content</li>
+            <li>Anyone using AI image generation tools</li>
+          </ul>
+        </div>
+
+        <!-- Features Tab -->
+        <div class="tab-content" id="features">
+          <h3>What's Included</h3>
+          <ul>
+            <li>50+ Prompt Templates (organized by style & use case)</li>
+            <li>Advanced Composition Guide</li>
+            <li>Lighting & Mood Techniques</li>
+            <li>Character Design Workflows</li>
+            <li>Product Photography Prompts</li>
+            <li>Landscape & Scene Generation</li>
+            <li>Quality Checklist System</li>
+            <li>Bonus: Platform Comparison Guide</li>
+            <li>Bonus: Refining Techniques</li>
+            <li>Email support for questions</li>
+          </ul>
+        </div>
+
+        <!-- FAQs Tab -->
+        <div class="tab-content" id="faqs">
+          <h3>Frequently Asked Questions</h3>
+          <p><strong>Do I need to own an AI image tool to use this?</strong></p>
+          <p>No, but you'll need access to at least one image generation platform (free or paid). The toolkit works with any major platform including Midjourney, DALL-E, Stable Diffusion, and Adobe Firefly.</p>
+          
+          <p style="margin-top: 24px;"><strong>Can I use these prompts commercially?</strong></p>
+          <p>Yes! Once you purchase the toolkit, you have full commercial rights to use the prompts and any images generated from them.</p>
+          
+          <p style="margin-top: 24px;"><strong>How often is the toolkit updated?</strong></p>
+          <p>We update the toolkit with new prompts and techniques monthly. All updates are included free with your purchase, forever.</p>
+          
+          <p style="margin-top: 24px;"><strong>What if I'm not satisfied?</strong></p>
+          <p>We offer a 30-day money-back guarantee. If you're not happy with the toolkit for any reason, we'll refund your purchase.</p>
+        </div>
+
+        <!-- Reviews Tab -->
+        <div class="tab-content" id="reviews">
+          <h3>Customer Reviews (427)</h3>
+          <p style="margin-bottom: 32px;">Join hundreds of satisfied creators who have transformed their AI image generation workflow with our toolkit.</p>
+          
+          <div style="background: rgba(10, 10, 10, 0.04); padding: 24px; border-radius: var(--radius-sm); margin-bottom: 24px;">
+            <div style="display: flex; gap: 8px; margin-bottom: 12px;">
+              <span class="star">★</span>
+              <span class="star">★</span>
+              <span class="star">★</span>
+              <span class="star">★</span>
+              <span class="star">★</span>
+            </div>
+            <p style="font-weight: 600; margin-bottom: 8px;">Life-changing resource!</p>
+            <p>"I've been using AI image tools for 6 months, and this toolkit finally gave me the structure I needed. My images are more consistent and professional than ever."</p>
+            <p style="margin-top: 12px; color: var(--muted); font-size: 0.875rem;">— Sarah M., Product Designer</p>
+          </div>
+
+          <div style="background: rgba(10, 10, 10, 0.04); padding: 24px; border-radius: var(--radius-sm); margin-bottom: 24px;">
+            <div style="display: flex; gap: 8px; margin-bottom: 12px;">
+              <span class="star">★</span>
+              <span class="star">★</span>
+              <span class="star">★</span>
+              <span class="star">★</span>
+              <span class="star">★</span>
+            </div>
+            <p style="font-weight: 600; margin-bottom: 8px;">Worth every penny</p>
+            <p>"The prompts are incredibly detailed, and the workflow system helped me cut my content creation time in half. Highly recommend!"</p>
+            <p style="margin-top: 12px; color: var(--muted); font-size: 0.875rem;">— Marcus T., Content Creator</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Related Products -->
+      <div class="related-products">
+        <h2>You might also like</h2>
+        <div class="related-grid">
+          <div class="related-card">
+            <img src="https://rvosqmvsgmcuaujkphhr.supabase.co/storage/v1/object/public/SUITCASE/ALL%20TOOLS/86f28183-a6a3-4544-b6ab-618c0d9377cd%20(1)_4096x3058.png" alt="Video Toolkit" class="related-card-image">
+            <div class="related-card-content">
+              <div class="related-card-category">Video Tools</div>
+              <h3 class="related-card-title">Video Creation Toolkit</h3>
+              <div class="related-card-price">$39.00</div>
+              <button class="related-card-cta">View Details</button>
+            </div>
+          </div>
+
+          <div class="related-card">
+            <img src="https://rvosqmvsgmcuaujkphhr.supabase.co/storage/v1/object/public/SUITCASE/ALL%20TOOLS/86f28183-a6a3-4544-b6ab-618c0d9377cd%20(1)_4096x3058.png" alt="Chatbot Toolkit" class="related-card-image">
+            <div class="related-card-content">
+              <div class="related-card-category">AI Chatbots</div>
+              <h3 class="related-card-title">Chatbot Mastery Toolkit</h3>
+              <div class="related-card-price">$44.00</div>
+              <button class="related-card-cta">View Details</button>
+            </div>
+          </div>
+
+          <div class="related-card">
+            <img src="https://rvosqmvsgmcuaujkphhr.supabase.co/storage/v1/object/public/SUITCASE/ALL%20TOOLS/86f28183-a6a3-4544-b6ab-618c0d9377cd%20(1)_4096x3058.png" alt="Bundle" class="related-card-image">
+            <div class="related-card-content">
+              <div class="related-card-category">Bundle Deal</div>
+              <h3 class="related-card-title">Complete Creator Bundle</h3>
+              <div class="related-card-price">$99.00</div>
+              <button class="related-card-cta">View Details</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // Tab functionality
+    const tabButtons = document.querySelectorAll('.tab-button');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    tabButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const tabName = button.getAttribute('data-tab');
+        
+        // Remove active class from all buttons and contents
+        tabButtons.forEach(btn => btn.classList.remove('active'));
+        tabContents.forEach(content => content.classList.remove('active'));
+        
+        // Add active class to clicked button and corresponding content
+        button.classList.add('active');
+        document.getElementById(tabName).classList.add('active');
+      });
+    });
+
+    // Simple navigation scrolling effect
+    const nav = document.querySelector('nav');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        nav.classList.add('nav-scrolled');
+      } else {
+        nav.classList.remove('nav-scrolled');
+      }
+    });
+
+    // Button interactions
+    document.querySelector('.btn-add-cart').addEventListener('click', () => {
+      alert('Product added to cart!');
+    });
+
+    document.querySelector('.btn-wishlist').addEventListener('click', function() {
+      this.textContent = this.textContent === '♡ Add to Wishlist' ? '♥ Added to Wishlist' : '♡ Add to Wishlist';
+    });
+
+    document.querySelectorAll('.related-card-cta').forEach(btn => {
+      btn.addEventListener('click', () => {
+        alert('Redirecting to product details...');
+      });
+    });
+  </script>
+</body>
+</html>

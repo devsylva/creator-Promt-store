@@ -1,0 +1,52 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Toolkits - Creator Prompt Shop</title>
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav>
+    <div class="container">
+      <div class="nav-content">
+        <div class="nav-logo" data-brand></div>
+        <button class="hamburger" aria-label="Toggle menu" aria-expanded="false">
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+        </button>
+        <ul class="nav-links" data-nav></ul>
+        <a href="toolkits.html" class="nav-cta">Browse toolkits</a>
+      </div>
+    </div>
+  </nav>
+  <div class="nav-overlay"></div>
+
+  <!-- Toolkits Section -->
+  <section class="toolkits reveal">
+    <div class="container">
+      <div class="section-title" style="text-align: center; margin-bottom: 56px;">
+        <h2 data-toolkits-title></h2>
+        <p data-toolkits-subtext style="color: var(--muted); font-size: 1.125rem; margin-top: 16px;"></p>
+      </div>
+
+      <div class="toolkit-grid" data-toolkit-cards>
+        <!-- Toolkit cards will be injected by app.js from config.js -->
+      </div>
+
+      <!-- CTA Section -->
+      <div style="margin-top: 80px; text-align: center;">
+        <a class="btn btn-secondary" data-toolkits-cta></a>
+      </div>
+
+    </div>
+  </section>
+
+  <script src="{% static 'js/config.js' %}"></script>
+  <script src="{% static 'js/app.js' %}"></script>
+</body>
+</html>

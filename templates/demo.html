@@ -1,0 +1,63 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Demo - Creator Prompt Shop</title>
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav>
+    <div class="container">
+      <div class="nav-content">
+        <div class="nav-logo" data-brand></div>
+        <button class="hamburger" aria-label="Toggle menu" aria-expanded="false">
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+        </button>
+        <ul class="nav-links" data-nav></ul>
+        <a href="toolkits.html" class="nav-cta">Browse toolkits</a>
+      </div>
+    </div>
+  </nav>
+  <div class="nav-overlay"></div>
+
+  <!-- Demo Section -->
+  <section class="demo reveal">
+    <div class="container">
+      <div class="section-title" style="text-align: center; margin-bottom: 32px;">
+        <h2 data-demo-title></h2>
+        <a href="#user-results-gallery" class="btn btn-secondary demo-scroll-cta">See other users results</a>
+      </div>
+
+      <div class="floating-video-container">
+        <div class="media-slot floating" data-media="demo">
+          <div class="media-placeholder--demo">
+            <span class="placeholder-label">VIDEO SLOT</span>
+          </div>
+        </div>
+        <div class="spotlight spotlight--demo"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- User Results Gallery Section -->
+  <section id="user-results-gallery" class="user-results-section">
+    <div class="container">
+      <div class="results-header">
+        <h2>Cinematic portraits, moody scenes and story-driven visuals guided by structured prompts.</h2>
+      </div>
+
+      <div class="results-gallery" data-results-gallery>
+      </div>
+    </div>
+  </section>
+
+  <script src="{% static 'js/config.js' %}"></script>
+  <script src="{% static 'js/app.js' %}"></script>
+</body>
+</html>

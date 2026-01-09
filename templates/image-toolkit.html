@@ -1,0 +1,230 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Image Generation Toolkit - Creator Prompt Shop</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/toolkit.css' %}">
+  </head>
+  <body>
+    <header class="header">
+      <div class="container">
+        <div class="header-inner">
+          <a href="/toolkits/" class="brand">Creator Prompt Shop</a>
+          <nav class="nav">
+            <a href="#" class="nav-link">About</a>
+            <a href="#" class="nav-link">Contact</a>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <div class="container">
+        <nav class="breadcrumb">
+          <a href="#">Home</a>
+          <span class="breadcrumb__separator">&gt;</span>
+          <a href="/toolkits/">Toolkits</a>
+          <span class="breadcrumb__separator">&gt;</span>
+          <span class="breadcrumb__current">Image Generation Toolkit</span>
+        </nav>
+
+        <section class="hero-section">
+          <div class="hero-image">
+            <div class="hero-image__inner">
+              <img src="{{ toolkit.image_url }}" alt="Image Generation Toolkit" onerror="this.style.display='none'">
+            </div>
+          </div>
+
+          <div class="hero-content">
+            <h1 class="hero-title">{{ toolkit.title }}</h1>
+            <div class="hero-rating">
+              <span class="hero-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+              <span class="hero-rating-text">Used by 2.7+ million creators</span>
+            </div>
+            <p class="hero-price">${{ toolkit.price }}</p>
+            <p class="hero-description">{{ toolkit.description }}</p>
+
+            <h2 class="hero-benefits-title">What this toolkit helps you do</h2>
+            <ul class="hero-benefits">
+              <li>Complete prompt library for various art styles and compositions</li>
+              <li>Step-by-step workflows for character consistency</li>
+              <li>Lighting and mood control techniques</li>
+              <li>Advanced parameters and settings guide</li>
+              <li>Tips for refining and iterating on outputs</li>
+              <li>Real-world use cases and examples</li>
+            </ul>
+
+            <div class="hero-cta-group">
+              {% if download_available %}
+                <a href="/download/image/?session_id={{ session_id }}" class="btn-pill btn-pill--full" download>↓ Download Toolkit</a>
+              {% else %}
+                <button id="checkout-btn" class="btn-pill btn-pill--full">Get this toolkit</button>
+              {% endif %}
+              <a href="#gallery" class="btn-outline btn-outline--full">
+                See what your results will look like
+                <svg class="btn-outline__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </section>
+
+        <section id="gallery" class="gallery-section">
+          <div class="gallery-layout">
+            <div class="gallery-text">
+              <span class="section-label">FROM THE IMAGE TOOLKIT</span>
+              <h2 class="gallery-title">What your prompts can look like</h2>
+              <p class="gallery-description">These are examples of the kind of visual outcomes you can create using the prompts and techniques from this toolkit. Each frame demonstrates different styles, moods, and compositions.</p>
+            </div>
+
+            <div class="gallery-grid">
+              <div class="gallery-item">
+                <img class="gallery-item__image" src="https://rvosqmvsgmcuaujkphhr.supabase.co/storage/v1/object/public/SHOP/IMAGE%20TOOLKIT%20CARD/AI%20Influncer.jpg" alt="AI Influencer">
+                <span class="gallery-item__label">AI Influencer</span>
+              </div>
+              <div class="gallery-item">
+                <img class="gallery-item__image" src="https://rvosqmvsgmcuaujkphhr.supabase.co/storage/v1/object/public/SHOP/IMAGE%20TOOLKIT%20CARD/AI%20experiments_1472x2626.jpg" alt="AI Experiments">
+                <span class="gallery-item__label">AI Experiments</span>
+              </div>
+              <div class="gallery-item">
+                <img class="gallery-item__image" src="https://rvosqmvsgmcuaujkphhr.supabase.co/storage/v1/object/public/SHOP/IMAGE%20TOOLKIT%20CARD/PIXAR.jpg" alt="Pixar Style">
+                <span class="gallery-item__label">Pixar Style</span>
+              </div>
+              <div class="gallery-item">
+                <img class="gallery-item__image" src="https://rvosqmvsgmcuaujkphhr.supabase.co/storage/v1/object/public/SHOP/IMAGE%20TOOLKIT%20CARD/download%20(1)_1472x2626.jpg" alt="Dark Portrait">
+                <span class="gallery-item__label">Dark Portrait</span>
+              </div>
+              <div class="gallery-item">
+                <img class="gallery-item__image" src="https://rvosqmvsgmcuaujkphhr.supabase.co/storage/v1/object/public/SHOP/IMAGE%20TOOLKIT%20CARD/download%20(14)_1472x2576.jpg" alt="Blonde Portrait">
+                <span class="gallery-item__label">Blonde Portrait</span>
+              </div>
+              <div class="gallery-item">
+                <img class="gallery-item__image" src="https://rvosqmvsgmcuaujkphhr.supabase.co/storage/v1/object/public/SHOP/IMAGE%20TOOLKIT%20CARD/maison%20meta_1472x2626.jpg" alt="Maison Meta">
+                <span class="gallery-item__label">Maison Meta</span>
+              </div>
+              <div class="gallery-item">
+                <img class="gallery-item__image" src="https://rvosqmvsgmcuaujkphhr.supabase.co/storage/v1/object/public/SHOP/IMAGE%20TOOLKIT%20CARD/download%20(10)_1184x2048.jpg" alt="Casual Style">
+                <span class="gallery-item__label">Casual Style</span>
+              </div>
+              <div class="gallery-item">
+                <img class="gallery-item__image" src="https://rvosqmvsgmcuaujkphhr.supabase.co/storage/v1/object/public/SHOP/IMAGE%20TOOLKIT%20CARD/Real%20Life%20Naruto%20Mode%20Transformation%20_%20Ultra%20Realistic%20Anime%20Adaptation_1472x2208.jpg" alt="Anime Adaptation">
+                <span class="gallery-item__label">Anime Adaptation</span>
+              </div>
+              <div class="gallery-item">
+                <img class="gallery-item__image" src="https://rvosqmvsgmcuaujkphhr.supabase.co/storage/v1/object/public/SHOP/IMAGE%20TOOLKIT%20CARD/download%20(5)_1344x2400.jpg" alt="Selfie Style">
+                <span class="gallery-item__label">Selfie Style</span>
+              </div>
+              <div class="gallery-item">
+                <img class="gallery-item__image" src="https://rvosqmvsgmcuaujkphhr.supabase.co/storage/v1/object/public/SHOP/IMAGE%20TOOLKIT%20CARD/download_1472x2624.jpg" alt="Creative Portrait">
+                <span class="gallery-item__label">Creative Portrait</span>
+              </div>
+              <div class="gallery-item">
+                <img class="gallery-item__image" src="https://rvosqmvsgmcuaujkphhr.supabase.co/storage/v1/object/public/SHOP/IMAGE%20TOOLKIT%20CARD/download%20(6)_1472x2624.jpg" alt="Happy Dog">
+                <span class="gallery-item__label">Happy Dog</span>
+              </div>
+              <div class="gallery-item">
+                <img class="gallery-item__image" src="https://rvosqmvsgmcuaujkphhr.supabase.co/storage/v1/object/public/SHOP/IMAGE%20TOOLKIT%20CARD/Golden%20Hour%20Glow_%20Hijabi%20Elegance%20in%20Warm%20Tones_1472x2208.jpg" alt="Golden Hour">
+                <span class="gallery-item__label">Golden Hour</span>
+              </div>
+              <div class="gallery-item">
+                <img class="gallery-item__image" src="https://rvosqmvsgmcuaujkphhr.supabase.co/storage/v1/object/public/SHOP/IMAGE%20TOOLKIT%20CARD/Midjourney%20Prompt%2C%20Midjourneyart%20_%20Fashion%20Portrait%20with%20Orange%20Glasses_1472x2208.jpg" alt="Orange Glasses">
+                <span class="gallery-item__label">Orange Glasses</span>
+              </div>
+              <div class="gallery-item">
+                <img class="gallery-item__image" src="https://rvosqmvsgmcuaujkphhr.supabase.co/storage/v1/object/public/SHOP/IMAGE%20TOOLKIT%20CARD/download%20(8)_1472x2616.jpg" alt="Goku Style">
+                <span class="gallery-item__label">Goku Style</span>
+              </div>
+              <div class="gallery-item">
+                <img class="gallery-item__image" src="https://rvosqmvsgmcuaujkphhr.supabase.co/storage/v1/object/public/SHOP/IMAGE%20TOOLKIT%20CARD/download%20(7)_1472x2616.jpg" alt="POV Scene">
+                <span class="gallery-item__label">POV Scene</span>
+              </div>
+              <div class="gallery-item">
+                <img class="gallery-item__image" src="https://rvosqmvsgmcuaujkphhr.supabase.co/storage/v1/object/public/SHOP/IMAGE%20TOOLKIT%20CARD/Midjourney%20Prompt%2C%20Midjourneyart%20_%20Fashion%20Portrait%20in%20Sunglasse_1472x2208.jpg" alt="Fashion Sunglasses">
+                <span class="gallery-item__label">Fashion Sunglasses</span>
+              </div>
+              <div class="gallery-item">
+                <img class="gallery-item__image" src="https://rvosqmvsgmcuaujkphhr.supabase.co/storage/v1/object/public/SHOP/IMAGE%20TOOLKIT%20CARD/Wedding%20prompt_1472x2208.jpg" alt="Wedding Scene">
+                <span class="gallery-item__label">Wedding Scene</span>
+              </div>
+              <div class="gallery-item">
+                <img class="gallery-item__image" src="https://rvosqmvsgmcuaujkphhr.supabase.co/storage/v1/object/public/SHOP/IMAGE%20TOOLKIT%20CARD/download%20(1)_1318x2402.jpg" alt="Fashion Portrait">
+                <span class="gallery-item__label">Fashion Portrait</span>
+              </div>
+              <div class="gallery-item">
+                <img class="gallery-item__image" src="https://rvosqmvsgmcuaujkphhr.supabase.co/storage/v1/object/public/SHOP/IMAGE%20TOOLKIT%20CARD/download_1472x2616.jpg" alt="Couple Shot">
+                <span class="gallery-item__label">Couple Shot</span>
+              </div>
+              <div class="gallery-item">
+                <img class="gallery-item__image" src="https://rvosqmvsgmcuaujkphhr.supabase.co/storage/v1/object/public/SHOP/IMAGE%20TOOLKIT%20CARD/download%20(15)_1472x2576.jpg" alt="Fashion Model">
+                <span class="gallery-item__label">Fashion Model</span>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="container">
+        <p class="footer-text">Creator Prompt Shop</p>
+      </div>
+    </footer>
+
+    <script src="https://js.stripe.com/v3/"></script>
+    <script>
+      const stripe = Stripe('{{ stripe_public_key }}');
+      
+      document.addEventListener('DOMContentLoaded', function() {
+        const checkoutBtn = document.getElementById('checkout-btn');
+        const heroImg = document.querySelector('.hero-image__inner img');
+        const imageUrl = '{{ toolkit.image_url }}';
+
+        if (heroImg && imageUrl) {
+          heroImg.src = imageUrl;
+          heroImg.style.display = '';
+        }
+
+        if (checkoutBtn) {
+          checkoutBtn.addEventListener('click', async function() {
+            try {
+              const response = await fetch('/api/checkout-session/', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                  toolkit_type: 'image',
+                }),
+              });
+
+              const data = await response.json();
+              if (data.error) {
+                alert('Error: ' + data.error);
+                return;
+              }
+
+              // Redirect to Stripe checkout
+              const result = await stripe.redirectToCheckout({
+                sessionId: data.sessionId,
+              });
+
+              if (result.error) {
+                alert('Error: ' + result.error.message);
+              }
+            } catch (error) {
+              console.error('Error:', error);
+              alert('An error occurred. Please try again.');
+            }
+          });
+        }
+      });
+    </script>
+  </body>
+</html>

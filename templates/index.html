@@ -1,0 +1,132 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Creator Prompt Shop - Prompt Toolkits for Serious Creators</title>
+  <meta property="og:image" content="https://bolt.new/static/og_default.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://bolt.new/static/og_default.png">
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav>
+    <div class="container">
+      <div class="nav-content">
+        <div class="nav-logo" data-brand></div>
+        <button class="hamburger" aria-label="Toggle menu" aria-expanded="false">
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+        </button>
+        <ul class="nav-links" data-nav></ul>
+        <a href="#toolkits" class="nav-cta">Browse toolkits</a>
+      </div>
+    </div>
+  </nav>
+  <div class="nav-overlay"></div>
+
+  <!-- Hero Section -->
+  <section class="hero reveal">
+    <div class="container">
+      <div class="hero-grid">
+        <div class="hero-left">
+          <span class="eyebrow-label">Professional Prompt Systems</span>
+          <h1 data-hero-headline></h1>
+          <p data-hero-subtext></p>
+          <div class="trust-badge">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+              <polyline points="22 4 12 14.01 9 11.01"/>
+            </svg>
+            <span>Used by over 2.7 Million + creators</span>
+          </div>
+          <div class="cta-row">
+            <a class="btn btn-primary" data-hero-primary-cta></a>
+            <a class="btn btn-secondary" data-hero-secondary-cta></a>
+          </div>
+        </div>
+        <div class="hero-right">
+          <div class="hero-visual floating">
+            <img src="https://rvosqmvsgmcuaujkphhr.supabase.co/storage/v1/object/public/SUITCASE/ALL%20TOOLS/86f28183-a6a3-4544-b6ab-618c0d9377cd%20(1)_4096x3058.png" alt="Toolkit" class="hero-image" />
+            <div class="spotlight spotlight--hero"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Social Proof Strip -->
+  <div class="social-proof-strip">
+    <div class="container">
+      <div class="social-proof-content">
+        <span class="social-proof-main">Works with any AI Tool</span>
+        <span class="social-proof-sub">Chatbots · Image models · Video models</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Demo Section -->
+  <section id="demo" class="demo reveal">
+    <div class="container">
+      <div class="floating-video-container">
+        <div class="media-slot floating" data-media="demo">
+          <div class="media-placeholder--demo">
+            <span class="placeholder-label">VIDEO SLOT</span>
+          </div>
+        </div>
+        <div class="spotlight spotlight--demo"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Toolkits Section -->
+  <section id="toolkits" class="toolkits reveal">
+    <div class="container">
+      <h2 class="section-title">Choose your toolkit</h2>
+      <div class="toolkit-grid" data-toolkit-cards>
+        <!-- Toolkit cards will be injected by app.js from config.js -->
+      </div>
+    </div>
+  </section>
+
+  <!-- What's Inside Section -->
+  <section class="whats-inside reveal">
+    <div class="container">
+      <h2 class="section-title">What's inside each toolkit</h2>
+      <div class="features-grid">
+        <div class="feature-item">
+          <h4>Structured Prompt Templates</h4>
+          <p>Ready-to-use prompts organized by use case, with fill-in-the-blank sections for quick customization.</p>
+        </div>
+        <div class="feature-item">
+          <h4>Step-by-Step Workflows</h4>
+          <p>Clear processes that guide you from idea to finished output, eliminating guesswork.</p>
+        </div>
+        <div class="feature-item">
+          <h4>Bonus Checklists</h4>
+          <p>Quality assurance guides to review your prompts before running them.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- User Results Gallery Section -->
+  <section id="user-results-gallery" class="user-results-section">
+    <div class="container">
+      <div class="results-header">
+        <h2>Cinematic portraits, moody scenes and story-driven visuals guided by structured prompts.</h2>
+      </div>
+
+      <div class="results-gallery" data-results-gallery>
+      </div>
+    </div>
+  </section>
+
+  <script src="{% static 'js/config.js' %}"></script>
+  <script src="{% static 'js/app.js' %}"></script>
+</body>
+</html>

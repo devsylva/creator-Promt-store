@@ -1,0 +1,130 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chatbot Mastery Toolkit - Creator Prompt Shop</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/toolkit.css' %}">
+  </head>
+  <body>
+    <header class="header">
+      <div class="container">
+        <div class="header-inner">
+          <a href="/toolkits/" class="brand">Creator Prompt Shop</a>
+          <nav class="nav">
+            <a href="#" class="nav-link">About</a>
+            <a href="#" class="nav-link">Contact</a>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <div class="container">
+        <nav class="breadcrumb">
+          <a href="#">Home</a>
+          <span class="breadcrumb__separator">&gt;</span>
+          <a href="/toolkits/">Toolkits</a>
+          <span class="breadcrumb__separator">&gt;</span>
+          <span class="breadcrumb__current">Chatbot Mastery Toolkit</span>
+        </nav>
+
+        <section class="hero-section">
+          <div class="hero-image">
+            <div class="hero-image__inner">
+              <img src="{{ toolkit.image_url }}" alt="Chatbot Mastery Toolkit" onerror="this.style.display='none'">
+            </div>
+          </div>
+
+          <div class="hero-content">
+            <h1 class="hero-title">{{ toolkit.title }}</h1>
+            <div class="hero-rating">
+              <span class="hero-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+              <span class="hero-rating-text">Used by 2.7+ million creators</span>
+            </div>
+            <p class="hero-price">${{ toolkit.price }}</p>
+            <p class="hero-description">{{ toolkit.description }}</p>
+
+            <h2 class="hero-benefits-title">What this toolkit helps you do</h2>
+            <ul class="hero-benefits">
+              <li>System prompt templates for various use cases</li>
+              <li>Conversation flow design patterns</li>
+              <li>Tone and personality configuration</li>
+              <li>Context management strategies</li>
+              <li>Error handling and fallback responses</li>
+              <li>Integration and deployment guides</li>
+            </ul>
+
+            {% if download_available %}
+              <a href="/download/chat/?session_id={{ session_id }}" class="btn-pill btn-pill--full" download>↓ Download Toolkit</a>
+            {% else %}
+              <button id="checkout-btn" class="btn-pill btn-pill--full">Get this toolkit</button>
+            {% endif %}
+          </div>
+        </section>
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="container">
+        <p class="footer-text">Creator Prompt Shop</p>
+      </div>
+    </footer>
+
+    <script src="https://js.stripe.com/v3/"></script>
+    <script>
+      const stripe = Stripe('{{ stripe_public_key }}');
+      
+      document.addEventListener('DOMContentLoaded', function() {
+        const checkoutBtn = document.getElementById('checkout-btn');
+        const heroImg = document.querySelector('.hero-image__inner img');
+        const imageUrl = '{{ toolkit.image_url }}';
+
+        if (heroImg && imageUrl) {
+          heroImg.src = imageUrl;
+          heroImg.style.display = '';
+        }
+
+        if (checkoutBtn) {
+          checkoutBtn.addEventListener('click', async function() {
+            try {
+              const response = await fetch('/api/checkout-session/', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                  toolkit_type: 'chat',
+                }),
+              });
+
+              const data = await response.json();
+              if (data.error) {
+                alert('Error: ' + data.error);
+                return;
+              }
+
+              // Redirect to Stripe checkout
+              const result = await stripe.redirectToCheckout({
+                sessionId: data.sessionId,
+              });
+
+              if (result.error) {
+                alert('Error: ' + result.error.message);
+              }
+            } catch (error) {
+              console.error('Error:', error);
+              alert('An error occurred. Please try again.');
+            }
+          });
+        }
+      });
+    </script>
+  </body>
+</html>

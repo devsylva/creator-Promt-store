@@ -1,0 +1,102 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vanilla Creator Prompt Shop Form</title>
+  <link rel="icon" type="image/svg+xml" href="/vite.svg">
+  <meta property="og:image" content="https://bolt.new/static/og_default.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://bolt.new/static/og_default.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/newsletter.css' %}">
+</head>
+<body>
+  <div class="page-label">Simple Prompt Shop</div>
+
+  <main class="container">
+    <div class="card">
+      <div class="badge">FREE PROMPT PACKET</div>
+      <h1 class="title">Creator Prompt Shop</h1>
+      <p class="subtitle">Prompt Packet + AI Updates</p>
+
+      <div class="step-content" id="stepContent">
+        <!-- Step 1: Name -->
+        <div class="step step-1 active" data-step="1">
+          <p class="question">What's your name?</p>
+          <div class="input-wrapper">
+            <input type="text" id="nameInput" class="input-field" placeholder="Enter your name...">
+            <button class="submit-btn" id="nameBtn">Continue</button>
+          </div>
+          <p class="error-message" id="nameError"></p>
+          <p class="step-indicator">Step 1 of 3</p>
+        </div>
+
+        <!-- Step 2: Country -->
+        <div class="step step-2" data-step="2">
+          <a href="#" class="back-link" data-back="1">&larr; Back</a>
+          <p class="question">What country are you in?</p>
+          <div class="input-wrapper">
+            <input type="text" id="countryInput" class="input-field" placeholder="Enter your country...">
+            <button class="submit-btn" id="countryBtn">Continue</button>
+          </div>
+          <p class="error-message" id="countryError"></p>
+          <p class="step-indicator">Step 2 of 3</p>
+        </div>
+
+        <!-- Step 3: Email -->
+        <div class="step step-3" data-step="3">
+          <!-- Email Entry View -->
+          <div class="email-view" id="emailView">
+            <a href="#" class="back-link" data-back="2">&larr; Back</a>
+            <p class="question">What's your email?</p>
+            <div class="input-wrapper">
+              <input type="email" id="emailInput" class="input-field" placeholder="Enter your email...">
+              <button class="submit-btn" id="emailBtn">Continue</button>
+            </div>
+            <p class="error-message" id="emailError"></p>
+            <p class="step-indicator">Step 3 of 3</p>
+          </div>
+
+          <!-- Email OTP Entry View -->
+          <div class="otp-view hidden" id="otpView">
+            <a href="#" class="back-link" id="changeEmailLink">&larr; Change email</a>
+            <p class="question">Check your inbox</p>
+            <p class="phone-subtitle" id="otpSubtitle">We sent a 4-digit verification code to <span id="emailDisplay"></span>.</p>
+            <div class="otp-container">
+              <input type="text" class="otp-box" maxlength="1" data-index="0" inputmode="numeric">
+              <input type="text" class="otp-box" maxlength="1" data-index="1" inputmode="numeric">
+              <input type="text" class="otp-box" maxlength="1" data-index="2" inputmode="numeric">
+              <input type="text" class="otp-box" maxlength="1" data-index="3" inputmode="numeric">
+            </div>
+            <p class="error-message" id="otpError"></p>
+            <button class="verify-btn" id="verifyBtn">Verify</button>
+            <a href="#" class="resend-link" id="resendLink">Resend code</a>
+            <p class="resend-message hidden" id="resendMessage">Code resent.</p>
+            <p class="step-indicator">Step 3 of 3</p>
+          </div>
+
+          <!-- Success View -->
+          <div class="success-view hidden" id="successView">
+            <div class="success-icon">
+              <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                <circle cx="24" cy="24" r="24" fill="#22c55e"/>
+                <path d="M14 24L21 31L34 18" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <p class="success-title">Verified!</p>
+            <p class="welcome-message">Welcome, <span id="welcomeName"></span>.</p>
+          </div>
+        </div>
+      </div>
+
+      <p class="footnote">No spam. Unsubscribe anytime.</p>
+    </div>
+  </main>
+
+  <script src="{% static 'js/newsletter-new.js' %}"></script>
+</body>
+</html>

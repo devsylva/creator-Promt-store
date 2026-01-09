@@ -1,0 +1,226 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Video Creation Toolkit - Creator Prompt Shop</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/toolkit.css' %}">
+  </head>
+  <body>
+    <header class="header">
+      <div class="container">
+        <div class="header-inner">
+          <a href="/toolkits/" class="brand">Creator Prompt Shop</a>
+          <nav class="nav">
+            <a href="#" class="nav-link">About</a>
+            <a href="#" class="nav-link">Contact</a>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <div class="container">
+        <nav class="breadcrumb">
+          <a href="#">Home</a>
+          <span class="breadcrumb__separator">&gt;</span>
+          <a href="/toolkits/">Toolkits</a>
+          <span class="breadcrumb__separator">&gt;</span>
+          <span class="breadcrumb__current">Video Creation Toolkit</span>
+        </nav>
+
+        <section class="hero-section">
+          <div class="hero-image">
+            <div class="hero-image__inner">
+              <img src="{{ toolkit.image_url }}" alt="Video Creation Toolkit" onerror="this.style.display='none'">
+            </div>
+          </div>
+
+          <div class="hero-content">
+            <h1 class="hero-title">{{ toolkit.title }}</h1>
+            <div class="hero-rating">
+              <span class="hero-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+              <span class="hero-rating-text">Used by 2.7+ million creators</span>
+            </div>
+            <p class="hero-price">${{ toolkit.price }}</p>
+            <p class="hero-description">{{ toolkit.description }}</p>
+
+            <h2 class="hero-benefits-title">What this toolkit helps you do</h2>
+            <ul class="hero-benefits">
+              <li>Scene composition and camera movement prompts</li>
+              <li>Storyboarding techniques for AI video</li>
+              <li>Transition and pacing strategies</li>
+              <li>Character animation workflows</li>
+              <li>Audio-visual synchronization tips</li>
+              <li>Export settings and optimization guide</li>
+            </ul>
+
+            <div class="hero-cta-group">
+              {% if download_available %}
+                <a href="/download/video/?session_id={{ session_id }}" class="btn-pill btn-pill--full" download>↓ Download Toolkit</a>
+              {% else %}
+                <button id="checkout-btn" class="btn-pill btn-pill--full">Get this toolkit</button>
+              {% endif %}
+              <a href="#gallery" class="btn-outline btn-outline--full">
+                See what your results will look like
+                <svg class="btn-outline__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </section>
+
+        <section id="gallery" class="gallery-section">
+          <div class="gallery-layout">
+            <div class="gallery-text">
+              <span class="section-label">FROM THE VIDEO TOOLKIT</span>
+              <h2 class="gallery-title">What your prompts can look like</h2>
+              <p class="gallery-description">These are examples of storyboard frames and video concepts you can create using the prompts and techniques from this toolkit. Each clip demonstrates different movements, transitions, and styles.</p>
+            </div>
+
+            <div class="gallery-grid">
+              <div class="gallery-item">
+                <video class="gallery-item__video" src="https://rvosqmvsgmcuaujkphhr.supabase.co/storage/v1/object/public/SHOP/VIDEOS%20TOOLKIT/Action.mp4" autoplay muted loop playsinline></video>
+                <span class="gallery-item__label">Action Scene</span>
+              </div>
+              <div class="gallery-item">
+                <video class="gallery-item__video" src="https://rvosqmvsgmcuaujkphhr.supabase.co/storage/v1/object/public/SHOP/VIDEOS%20TOOLKIT/Animated%20carttoon.mp4" autoplay muted loop playsinline></video>
+                <span class="gallery-item__label">Animated Cartoon</span>
+              </div>
+              <div class="gallery-item">
+                <video class="gallery-item__video" src="https://rvosqmvsgmcuaujkphhr.supabase.co/storage/v1/object/public/SHOP/VIDEOS%20TOOLKIT/Archer.mp4" autoplay muted loop playsinline></video>
+                <span class="gallery-item__label">Archer</span>
+              </div>
+              <div class="gallery-item">
+                <video class="gallery-item__video" src="https://rvosqmvsgmcuaujkphhr.supabase.co/storage/v1/object/public/SHOP/VIDEOS%20TOOLKIT/carton%20dancing.mp4" autoplay muted loop playsinline></video>
+                <span class="gallery-item__label">Cartoon Dancing</span>
+              </div>
+              <div class="gallery-item">
+                <video class="gallery-item__video" src="https://rvosqmvsgmcuaujkphhr.supabase.co/storage/v1/object/public/SHOP/VIDEOS%20TOOLKIT/Cat%20hologram.mp4" autoplay muted loop playsinline></video>
+                <span class="gallery-item__label">Cat Hologram</span>
+              </div>
+              <div class="gallery-item">
+                <video class="gallery-item__video" src="https://rvosqmvsgmcuaujkphhr.supabase.co/storage/v1/object/public/SHOP/VIDEOS%20TOOLKIT/Dog%20riding.mp4" autoplay muted loop playsinline></video>
+                <span class="gallery-item__label">Dog Riding</span>
+              </div>
+              <div class="gallery-item">
+                <video class="gallery-item__video" src="https://rvosqmvsgmcuaujkphhr.supabase.co/storage/v1/object/public/SHOP/VIDEOS%20TOOLKIT/drone%20flight.mp4" autoplay muted loop playsinline></video>
+                <span class="gallery-item__label">Drone Flight</span>
+              </div>
+              <div class="gallery-item">
+                <video class="gallery-item__video" src="https://rvosqmvsgmcuaujkphhr.supabase.co/storage/v1/object/public/SHOP/VIDEOS%20TOOLKIT/Fight%20scene.mp4" autoplay muted loop playsinline></video>
+                <span class="gallery-item__label">Fight Scene</span>
+              </div>
+              <div class="gallery-item">
+                <video class="gallery-item__video" src="https://rvosqmvsgmcuaujkphhr.supabase.co/storage/v1/object/public/SHOP/VIDEOS%20TOOLKIT/Girl%20swimming.mp4" autoplay muted loop playsinline></video>
+                <span class="gallery-item__label">Girl Swimming</span>
+              </div>
+              <div class="gallery-item">
+                <video class="gallery-item__video" src="https://rvosqmvsgmcuaujkphhr.supabase.co/storage/v1/object/public/SHOP/VIDEOS%20TOOLKIT/Human%20movements.mp4" autoplay muted loop playsinline></video>
+                <span class="gallery-item__label">Human Movements</span>
+              </div>
+              <div class="gallery-item">
+                <video class="gallery-item__video" src="https://rvosqmvsgmcuaujkphhr.supabase.co/storage/v1/object/public/SHOP/VIDEOS%20TOOLKIT/influncer.mp4" autoplay muted loop playsinline></video>
+                <span class="gallery-item__label">Influencer</span>
+              </div>
+              <div class="gallery-item">
+                <video class="gallery-item__video" src="https://rvosqmvsgmcuaujkphhr.supabase.co/storage/v1/object/public/SHOP/VIDEOS%20TOOLKIT/POv%20flight.mp4" autoplay muted loop playsinline></video>
+                <span class="gallery-item__label">POV Flight</span>
+              </div>
+              <div class="gallery-item">
+                <video class="gallery-item__video" src="https://rvosqmvsgmcuaujkphhr.supabase.co/storage/v1/object/public/SHOP/VIDEOS%20TOOLKIT/Pure%20horror.mp4" autoplay muted loop playsinline></video>
+                <span class="gallery-item__label">Pure Horror</span>
+              </div>
+              <div class="gallery-item">
+                <video class="gallery-item__video" src="https://rvosqmvsgmcuaujkphhr.supabase.co/storage/v1/object/public/SHOP/VIDEOS%20TOOLKIT/Red%20hair.mp4" autoplay muted loop playsinline></video>
+                <span class="gallery-item__label">Red Hair</span>
+              </div>
+              <div class="gallery-item">
+                <video class="gallery-item__video" src="https://rvosqmvsgmcuaujkphhr.supabase.co/storage/v1/object/public/SHOP/VIDEOS%20TOOLKIT/Running.mp4" autoplay muted loop playsinline></video>
+                <span class="gallery-item__label">Running</span>
+              </div>
+              <div class="gallery-item">
+                <video class="gallery-item__video" src="https://rvosqmvsgmcuaujkphhr.supabase.co/storage/v1/object/public/SHOP/VIDEOS%20TOOLKIT/Sci-fi.mp4" autoplay muted loop playsinline></video>
+                <span class="gallery-item__label">Sci-Fi</span>
+              </div>
+              <div class="gallery-item">
+                <video class="gallery-item__video" src="https://rvosqmvsgmcuaujkphhr.supabase.co/storage/v1/object/public/SHOP/VIDEOS%20TOOLKIT/Water%20horrr.mp4" autoplay muted loop playsinline></video>
+                <span class="gallery-item__label">Water Horror</span>
+              </div>
+              <div class="gallery-item">
+                <video class="gallery-item__video" src="https://rvosqmvsgmcuaujkphhr.supabase.co/storage/v1/object/public/SHOP/VIDEOS%20TOOLKIT/Wild%20life.mp4" autoplay muted loop playsinline></video>
+                <span class="gallery-item__label">Wildlife</span>
+              </div>
+              <div class="gallery-item">
+                <video class="gallery-item__video" src="https://rvosqmvsgmcuaujkphhr.supabase.co/storage/v1/object/public/SHOP/VIDEOS%20TOOLKIT/Wizard.mp4" autoplay muted loop playsinline></video>
+                <span class="gallery-item__label">Wizard</span>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="container">
+        <p class="footer-text">Creator Prompt Shop</p>
+      </div>
+    </footer>
+
+    <script src="https://js.stripe.com/v3/"></script>
+    <script>
+      const stripe = Stripe('{{ stripe_public_key }}');
+      
+      document.addEventListener('DOMContentLoaded', function() {
+        const checkoutBtn = document.getElementById('checkout-btn');
+        const heroImg = document.querySelector('.hero-image__inner img');
+        const imageUrl = '{{ toolkit.image_url }}';
+
+        if (heroImg && imageUrl) {
+          heroImg.src = imageUrl;
+          heroImg.style.display = '';
+        }
+
+        if (checkoutBtn) {
+          checkoutBtn.addEventListener('click', async function() {
+            try {
+              const response = await fetch('/api/checkout-session/', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                  toolkit_type: 'video',
+                }),
+              });
+
+              const data = await response.json();
+              if (data.error) {
+                alert('Error: ' + data.error);
+                return;
+              }
+
+              // Redirect to Stripe checkout
+              const result = await stripe.redirectToCheckout({
+                sessionId: data.sessionId,
+              });
+
+              if (result.error) {
+                alert('Error: ' + result.error.message);
+              }
+            } catch (error) {
+              console.error('Error:', error);
+              alert('An error occurred. Please try again.');
+            }
+          });
+        }
+      });
+    </script>
+  </body>
+</html>
