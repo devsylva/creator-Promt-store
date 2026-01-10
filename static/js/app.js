@@ -5,7 +5,7 @@
 
 const MEDIA = {
   heroImage: "",
-  demoVideoEmbed: "https://www.youtube.com/embed/E9ZXlauxCYE?rel=0&modestbranding=1",
+  demoVideoEmbed: "https://www.youtube.com/embed/E9ZXlauxCYE",
   demoVideoFile: "",
   demoVideoThumbnail: "",
   toolkitImage: "https://rvosqmvsgmcuaujkphhr.supabase.co/storage/v1/object/public/SUITCASE/IMAGE%20SUITCASE/79eeff69-d4ff-4348-a66f-2ca38c1a88bc_4096x3058.png",
@@ -185,16 +185,15 @@ function renderImage(slot, imageUrl, type) {
 }
 
 function renderVideoEmbed(slot, embedUrl) {
-  const iframeUrl = embedUrl.includes('?') ? `${embedUrl}&autoplay=0` : `${embedUrl}?autoplay=0`;
-
   slot.innerHTML = `
     <div style="position: relative; width: 100%; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 28px; box-shadow: 0 24px 70px rgba(0,0,0,0.10), 0 10px 28px rgba(0,0,0,0.06);">
       <iframe
-        src="${iframeUrl}"
+        src="${embedUrl}"
         style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 28px; border: none;"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         allowfullscreen
-        loading="lazy">
+        frameborder="0"
+        referrerpolicy="strict-origin-when-cross-origin">
       </iframe>
     </div>
   `;
