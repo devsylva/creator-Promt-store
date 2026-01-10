@@ -5,7 +5,7 @@
 
 const MEDIA = {
   heroImage: "",
-  demoVideoEmbed: "https://www.youtube.com/embed/ULzbJ5y8UcY?rel=0&modestbranding=1",
+  demoVideoEmbed: "https://www.youtube.com/embed/E9ZXlauxCYE?rel=0&modestbranding=1",
   demoVideoFile: "",
   demoVideoThumbnail: "",
   toolkitImage: "https://rvosqmvsgmcuaujkphhr.supabase.co/storage/v1/object/public/SUITCASE/IMAGE%20SUITCASE/79eeff69-d4ff-4348-a66f-2ca38c1a88bc_4096x3058.png",
@@ -185,64 +185,19 @@ function renderImage(slot, imageUrl, type) {
 }
 
 function renderVideoEmbed(slot, embedUrl) {
-  const thumbnailUrl = MEDIA.demoVideoThumbnail || getYouTubeThumbnail(embedUrl);
+  const iframeUrl = embedUrl.includes('?') ? `${embedUrl}&autoplay=0` : `${embedUrl}?autoplay=0`;
 
-  if (thumbnailUrl) {
-    slot.innerHTML = `
-      <div class="video-thumbnail-wrapper" style="position: relative; width: 100%; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 28px; box-shadow: 0 24px 70px rgba(0,0,0,0.10), 0 10px 28px rgba(0,0,0,0.06); cursor: pointer;">
-        <img src="${thumbnailUrl}" alt="Video thumbnail" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; border-radius: 28px;" />
-        <div class="video-play-button" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 80px; height: 80px; background: rgba(0, 0, 0, 0.7); border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: transform 0.2s ease, background 0.2s ease;">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M8 5.14v13.72a1 1 0 001.5.86l11-6.86a1 1 0 000-1.72l-11-6.86a1 1 0 00-1.5.86z" fill="white"/>
-          </svg>
-        </div>
-      </div>
-    `;
-
-    const wrapper = slot.querySelector('.video-thumbnail-wrapper');
-    const playBtn = slot.querySelector('.video-play-button');
-
-    wrapper.addEventListener('mouseenter', () => {
-      playBtn.style.transform = 'translate(-50%, -50%) scale(1.1)';
-      playBtn.style.background = 'rgba(0, 0, 0, 0.85)';
-    });
-
-    wrapper.addEventListener('mouseleave', () => {
-      playBtn.style.transform = 'translate(-50%, -50%) scale(1)';
-      playBtn.style.background = 'rgba(0, 0, 0, 0.7)';
-    });
-
-    wrapper.addEventListener('click', () => {
-      const floatingParent = slot.closest('.floating');
-      if (floatingParent) {
-        floatingParent.classList.remove('floating');
-      }
-
-      const autoplayUrl = embedUrl.includes('?') ? embedUrl + '&autoplay=1' : embedUrl + '?autoplay=1';
-      slot.innerHTML = `
-        <div style="position: relative; width: 100%; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 28px; box-shadow: 0 24px 70px rgba(0,0,0,0.10), 0 10px 28px rgba(0,0,0,0.06);">
-          <iframe
-            src="${autoplayUrl}"
-            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 28px; border: none;"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen>
-          </iframe>
-        </div>
-      `;
-    });
-  } else {
-    slot.innerHTML = `
-      <div style="position: relative; width: 100%; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 28px; box-shadow: 0 24px 70px rgba(0,0,0,0.10), 0 10px 28px rgba(0,0,0,0.06);">
-        <iframe
-          src="${embedUrl}"
-          style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 28px; border: none;"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowfullscreen
-          loading="lazy">
-        </iframe>
-      </div>
-    `;
-  }
+  slot.innerHTML = `
+    <div style="position: relative; width: 100%; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 28px; box-shadow: 0 24px 70px rgba(0,0,0,0.10), 0 10px 28px rgba(0,0,0,0.06);">
+      <iframe
+        src="${iframeUrl}"
+        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 28px; border: none;"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen
+        loading="lazy">
+      </iframe>
+    </div>
+  `;
 }
 
 function getYouTubeThumbnail(embedUrl) {

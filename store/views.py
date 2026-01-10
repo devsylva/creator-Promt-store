@@ -112,6 +112,18 @@ def create_checkout_session(request):
         import json
         data = json.loads(request.body)
         toolkit_type = data.get('toolkit_type')
+        newsletter_email = data.get('newsletter_email', '').strip()
+
+        # Enforce newsletter verification before checkout
+        if not newsletter_email:
+            return JsonResponse({'error': 'Please join the newsletter before checkout.'}, status=400)
+
+        subscriber = NewsletterSubscriber.objects.filter(email__iexact=newsletter_email).first()
+        if not subscriber:
+            return JsonResponse({'error': 'Please sign up for the newsletter to continue.'}, status=400)
+
+        if not subscriber.is_verified:
+            return JsonResponse({'error': 'Please verify your newsletter email (check your 4-digit code) before checkout.'}, status=400)
         
         # Get the toolkit based on type
         if toolkit_type == 'image':

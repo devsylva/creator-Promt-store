@@ -20,7 +20,7 @@ const SITE_CONFIG = {
   },
 
   demo: {
-    videoEmbedUrl: "https://www.youtube.com/embed/ULzbJ5y8UcY",
+    videoEmbedUrl: "https://www.youtube.com/embed/E9ZXlauxCYE",
     sectionTitle: "See how toolkits work",
     sectionSubtext: "Watch a walkthrough of our prompt toolkit system in action",
     ctaLabel: "Browse all toolkits",

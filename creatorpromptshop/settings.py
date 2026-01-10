@@ -32,10 +32,12 @@ DEBUG = os.getenv('DEBUG', 'False') == 'True'
 ALLOWED_HOSTS = [
     'creatorpromptshop.com',
     'www.creatorpromptshop.com',
+    'localhost',
 ]
 
 
 # Application definition
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',

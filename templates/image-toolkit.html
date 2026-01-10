@@ -178,52 +178,14 @@
     </footer>
 
     <script src="https://js.stripe.com/v3/"></script>
+    <script src="{% static 'js/checkout.js' %}"></script>
     <script>
-      const stripe = Stripe('{{ stripe_public_key }}');
-      
       document.addEventListener('DOMContentLoaded', function() {
-        const checkoutBtn = document.getElementById('checkout-btn');
-        const heroImg = document.querySelector('.hero-image__inner img');
-        const imageUrl = '{{ toolkit.image_url }}';
-
-        if (heroImg && imageUrl) {
-          heroImg.src = imageUrl;
-          heroImg.style.display = '';
-        }
-
-        if (checkoutBtn) {
-          checkoutBtn.addEventListener('click', async function() {
-            try {
-              const response = await fetch('/api/checkout-session/', {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                  toolkit_type: 'image',
-                }),
-              });
-
-              const data = await response.json();
-              if (data.error) {
-                alert('Error: ' + data.error);
-                return;
-              }
-
-              // Redirect to Stripe checkout
-              const result = await stripe.redirectToCheckout({
-                sessionId: data.sessionId,
-              });
-
-              if (result.error) {
-                alert('Error: ' + result.error.message);
-              }
-            } catch (error) {
-              console.error('Error:', error);
-              alert('An error occurred. Please try again.');
-            }
-          });
-        }
+        setupCheckoutPage({
+          toolkitType: 'image',
+          stripePublicKey: '{{ stripe_public_key }}',
+          imageUrl: '{{ toolkit.image_url }}',
+        });
       });
     </script>
   </body>

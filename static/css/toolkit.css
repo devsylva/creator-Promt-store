@@ -580,3 +580,114 @@ img {
   font-size: 0.875rem;
   color: var(--color-text-light);
 }
+
+/* Newsletter checkout gate */
+.newsletter-gate {
+  margin-top: 14px;
+  padding: 14px 16px;
+  border: 1px dashed rgba(0, 0, 0, 0.25);
+  border-radius: var(--radius-lg);
+  background: #fffdf8;
+  box-shadow: var(--shadow-soft);
+}
+
+.newsletter-gate__header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.newsletter-gate__badge {
+  background: #111;
+  color: #fff;
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.newsletter-gate__title {
+  font-weight: 600;
+  font-size: 1rem;
+  margin-bottom: 2px;
+}
+
+.newsletter-gate__subtitle {
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+}
+
+.newsletter-gate__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.newsletter-gate__input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #dcd7cd;
+  border-radius: var(--radius-md);
+  font: inherit;
+  background: #fff;
+}
+
+.newsletter-gate__input:disabled {
+  background: #f3f0eb;
+  cursor: not-allowed;
+}
+
+.newsletter-gate__btn {
+  padding: 12px 14px;
+  border-radius: var(--radius-md);
+  border: none;
+  background: #111;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.newsletter-gate__btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.16);
+}
+
+.newsletter-gate__btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+.newsletter-gate__status {
+  font-size: 0.9rem;
+  margin-top: 4px;
+}
+
+.newsletter-gate__status[data-tone="error"] {
+  color: #b00020;
+}
+
+.newsletter-gate__status[data-tone="success"] {
+  color: #0f9d58;
+}
+
+.newsletter-gate__status[data-tone="info"] {
+  color: #1f4b99;
+}
+
+.newsletter-gate--verified {
+  border-color: #0f9d58;
+  background: #f4fff7;
+}
+
+@media (max-width: 640px) {
+  .newsletter-gate__row {
+    grid-template-columns: 1fr;
+  }
+}
+}
