@@ -185,15 +185,21 @@ function renderImage(slot, imageUrl, type) {
 }
 
 function renderVideoEmbed(slot, embedUrl) {
+  // Ensure we're using the nocookie version for better privacy and compatibility
+  let finalEmbedUrl = embedUrl;
+  if (embedUrl.includes('youtube.com/embed/')) {
+    finalEmbedUrl = embedUrl.replace('youtube.com', 'youtube-nocookie.com');
+  }
+  
   slot.innerHTML = `
     <div style="position: relative; width: 100%; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 28px; box-shadow: 0 24px 70px rgba(0,0,0,0.10), 0 10px 28px rgba(0,0,0,0.06);">
       <iframe
-        src="${embedUrl}"
+        src="${finalEmbedUrl}"
         style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 28px; border: none;"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         allowfullscreen
         frameborder="0"
-        referrerpolicy="strict-origin-when-cross-origin">
+        loading="lazy">
       </iframe>
     </div>
   `;

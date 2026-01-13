@@ -33,6 +33,8 @@ ALLOWED_HOSTS = [
     'creatorpromptshop.com',
     'www.creatorpromptshop.com',
     'localhost',
+    '127.0.0.1',
+    # Add your VPS IP if needed, e.g., '123.456.789.0'
 ]
 
 
@@ -140,6 +142,28 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Security Settings for Production
+# Allow your site to be embedded in iframes (needed for internal pages)
+X_FRAME_OPTIONS = 'SAMEORIGIN'
+
+# Content Security Policy - Allow YouTube embeds
+# This allows YouTube iframes to load properly
+CSP_FRAME_SRC = ["'self'", "https://www.youtube.com", "https://www.youtube-nocookie.com"]
+CSP_DEFAULT_SRC = ["'self'"]
+CSP_SCRIPT_SRC = ["'self'", "'unsafe-inline'", "https://js.stripe.com"]
+CSP_STYLE_SRC = ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"]
+CSP_FONT_SRC = ["'self'", "https://fonts.gstatic.com"]
+CSP_IMG_SRC = ["'self'", "data:", "https:", "http:"]
+CSP_CONNECT_SRC = ["'self'", "https://api.stripe.com"]
+
+# HTTPS/SSL Settings (uncomment in production with SSL)
+# SECURE_SSL_REDIRECT = True
+# SESSION_COOKIE_SECURE = True
+# CSRF_COOKIE_SECURE = True
+# SECURE_HSTS_SECONDS = 31536000
+# SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+# SECURE_HSTS_PRELOAD = True
 
 STRIPE_PUBLIC_KEY = os.getenv('STRIPE_PUBLIC_KEY')
 STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY')
