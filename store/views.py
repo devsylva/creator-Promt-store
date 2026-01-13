@@ -321,6 +321,31 @@ def api_newsletter_verify_otp(request):
         subscriber.otp_expires_at = None
         subscriber.save(update_fields=['is_verified', 'otp', 'otp_expires_at'])
         
+        # Send welcome message email
+        try:
+            welcome_html = render_to_string(
+                'welcome-message.html',
+                {
+                    'NAME': subscriber.name,
+                    'EMAIL': subscriber.email,
+                    'SUPPORT_EMAIL': 'support@creatorpromptshop.com',
+                    'YEAR': timezone.now().year,
+                }
+            )
+            welcome_text = strip_tags(welcome_html)
+            
+            send_mail(
+                subject='Welcome to Creator Prompt Shop Newsletter! 🎉',
+                message=welcome_text,
+                from_email=settings.DEFAULT_FROM_EMAIL,
+                recipient_list=[email],
+                fail_silently=True,  # Don't fail the verification if email fails
+                html_message=welcome_html,
+            )
+        except Exception as e:
+            # Log error but don't fail the verification process
+            print(f"Failed to send welcome email to {email}: {str(e)}")
+        
         return JsonResponse({'success': True, 'message': 'Email verified successfully'})
     
     except json.JSONDecodeError:
