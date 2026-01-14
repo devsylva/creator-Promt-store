@@ -49,10 +49,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'store',
+    'csp',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'csp.middleware.CSPMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -145,17 +147,24 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Security Settings for Production
 # Allow your site to be embedded in iframes (needed for internal pages)
-X_FRAME_OPTIONS = 'SAMEORIGIN'
+X_FRAME_OPTIONS = 'ALLOWALL'
 
 # Content Security Policy - Allow YouTube embeds
 # This allows YouTube iframes to load properly
-CSP_FRAME_SRC = ["'self'", "https://www.youtube.com", "https://www.youtube-nocookie.com"]
-CSP_DEFAULT_SRC = ["'self'"]
-CSP_SCRIPT_SRC = ["'self'", "'unsafe-inline'", "https://js.stripe.com"]
-CSP_STYLE_SRC = ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"]
-CSP_FONT_SRC = ["'self'", "https://fonts.gstatic.com"]
-CSP_IMG_SRC = ["'self'", "data:", "https:", "http:"]
-CSP_CONNECT_SRC = ["'self'", "https://api.stripe.com"]
+CSP_DEFAULT_SRC = ("'self'",)
+
+CSP_FRAME_SRC = (
+    "'self'",
+    "https://www.youtube.com",
+    "https://www.youtube-nocookie.com",
+)
+
+CSP_SCRIPT_SRC = (
+    "'self'",
+    "'unsafe-inline'",
+    "https://www.youtube.com",
+    "https://www.gstatic.com",
+)
 
 # HTTPS/SSL Settings (uncomment in production with SSL)
 # SECURE_SSL_REDIRECT = True
