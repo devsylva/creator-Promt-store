@@ -4,7 +4,7 @@ const SITE_CONFIG = {
   brandName: "Creator Prompt Shop",
 
   nav: [
-    { label: "Home", href: "#" },
+    { label: "Home", href: "/" },
     { label: "Shop", href: "#toolkits" },
     { label: "About", href: "#demo" },
     // { label: "Contact", href: "#contact" }
