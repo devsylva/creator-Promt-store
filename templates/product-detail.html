@@ -444,12 +444,12 @@
           <span class="hamburger-line"></span>
         </button>
         <ul class="nav-links">
-          <li><a href="index.html">Home</a></li>
-          <li><a href="toolkits.html">Shop</a></li>
+          <li><a href="{% url 'index' %}">Home</a></li>
+          <li><a href="{% url 'index' %}#toolkits">Shop</a></li>
           <li><a href="#about">About</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
-        <a href="toolkits.html" class="nav-cta">Browse toolkits</a>
+        <a href="{% url 'index' %}#toolkits" class="nav-cta">Browse toolkits</a>
       </div>
     </div>
   </nav>
@@ -460,9 +460,9 @@
     <div class="container">
       <!-- Breadcrumb -->
       <nav class="breadcrumb">
-        <a href="index.html">Home</a>
+        <a href="{% url 'index' %}">Home</a>
         <span class="breadcrumb-divider">/</span>
-        <a href="toolkits.html">Toolkits</a>
+        <a href="{% url 'index' %}#toolkits">Toolkits</a>
         <span class="breadcrumb-divider">/</span>
         <span class="breadcrumb-current">Product</span>
       </nav>

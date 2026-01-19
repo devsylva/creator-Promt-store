@@ -591,6 +591,103 @@ img {
   box-shadow: var(--shadow-soft);
 }
 
+.newsletter-steps {
+  padding: 18px;
+  border: 1px solid #dcd7cd;
+  background: linear-gradient(180deg, #fffdf8 0%, #f9f7f2 100%);
+  border-radius: var(--radius-lg);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.newsletter-steps__progress {
+  width: 100%;
+  height: 6px;
+  background: #efe9dd;
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+}
+
+.newsletter-steps__progress-bar {
+  display: block;
+  height: 100%;
+  width: 12%;
+  background: linear-gradient(90deg, #111 0%, #444 100%);
+  transition: width var(--transition-slow);
+}
+
+.newsletter-step {
+  background: #fff;
+  border-radius: var(--radius-md);
+  border: 1px solid #e2ddd1;
+  padding: 12px 12px 10px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.newsletter-step[data-state="active"] {
+  border-color: #111;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.06);
+}
+
+.newsletter-step[data-state="completed"] {
+  border-color: #0f9d58;
+}
+
+.newsletter-step__header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.newsletter-step__badge {
+  background: #111;
+  color: #fff;
+  border-radius: var(--radius-pill);
+  padding: 4px 10px;
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.newsletter-step__title {
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.newsletter-step__hint {
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+}
+
+.newsletter-step__action {
+  margin-left: auto;
+  padding: 10px 14px;
+  background: #111;
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.newsletter-step__action:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+}
+
+.newsletter-step__body {
+  margin-top: 12px;
+}
+
+.newsletter-step__summary {
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
+  margin: 4px 0 2px;
+}
+
 .newsletter-gate__header {
   display: flex;
   align-items: center;
@@ -689,5 +786,4 @@ img {
   .newsletter-gate__row {
     grid-template-columns: 1fr;
   }
-}
 }

@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vanilla Creator Prompt Shop Form</title>
+  <title>Creator Prompt Shop Form</title>
   <link rel="icon" type="image/svg+xml" href="/vite.svg">
   <meta property="og:image" content="https://bolt.new/static/og_default.png">
   <meta name="twitter:card" content="summary_large_image">
@@ -40,7 +40,9 @@
           <a href="#" class="back-link" data-back="1">&larr; Back</a>
           <p class="question">What country are you in?</p>
           <div class="input-wrapper">
-            <input type="text" id="countryInput" class="input-field" placeholder="Enter your country...">
+            <select id="countryInput" class="input-field">
+              <option value="">Select your country...</option>
+            </select>
             <button class="submit-btn" id="countryBtn">Continue</button>
           </div>
           <p class="error-message" id="countryError"></p>

@@ -4,7 +4,7 @@ const SITE_CONFIG = {
   brandName: "Creator Prompt Shop",
 
   nav: [
-    { label: "Home", href: "index.html" },
+    { label: "Home", href: "#" },
     { label: "Shop", href: "#toolkits" },
     { label: "About", href: "#demo" },
     // { label: "Contact", href: "#contact" }
@@ -20,7 +20,7 @@ const SITE_CONFIG = {
   },
 
   demo: {
-    videoEmbedUrl: "https://www.youtube.com/embed/E9ZXlauxCYE",
+    videoEmbedUrl: "https://www.youtube.com/embed/E9ZXlauxCYE?si=TrV-1zM4pXkmIIem",
     sectionTitle: "See how toolkits work",
     sectionSubtext: "Watch a walkthrough of our prompt toolkit system in action",
     ctaLabel: "Browse all toolkits",

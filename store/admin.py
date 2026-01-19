@@ -10,6 +10,6 @@ admin.site.register(ChatBotToolKit)
 @admin.register(NewsletterSubscriber)
 class NewsletterSubscriberAdmin(admin.ModelAdmin):
     list_display = ('email', 'name', 'country', 'is_verified', 'created_at')
-    list_filter = ('is_verified', 'created_at')
+    list_filter = ('country', 'is_verified', 'created_at')
     search_fields = ('email', 'name', 'country')
     readonly_fields = ('created_at', 'updated_at', 'otp')

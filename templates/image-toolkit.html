@@ -62,7 +62,7 @@
 
             <div class="hero-cta-group">
               {% if download_available %}
-                <a href="/download/image/?session_id={{ session_id }}" class="btn-pill btn-pill--full" download>↓ Download Toolkit</a>
+                <a id="checkout-btn" href="/download/image/?session_id={{ session_id }}" class="btn-pill btn-pill--full" download>↓ Download Toolkit</a>
               {% else %}
                 <button id="checkout-btn" class="btn-pill btn-pill--full">Get this toolkit</button>
               {% endif %}

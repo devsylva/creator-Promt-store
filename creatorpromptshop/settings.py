@@ -149,22 +149,47 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Allow your site to be embedded in iframes (needed for internal pages)
 X_FRAME_OPTIONS = 'ALLOWALL'
 
-# Content Security Policy - Allow YouTube embeds
-# This allows YouTube iframes to load properly
-CSP_DEFAULT_SRC = ("'self'",)
-
-CSP_FRAME_SRC = (
-    "'self'",
-    "https://www.youtube.com",
-    "https://www.youtube-nocookie.com",
-)
-
-CSP_SCRIPT_SRC = (
-    "'self'",
-    "'unsafe-inline'",
-    "https://www.youtube.com",
-    "https://www.gstatic.com",
-)
+# Content Security Policy (django-csp >= 4.0 format)
+# Mirrors the previous CSP_* values while using the new directive structure.
+CONTENT_SECURITY_POLICY = {
+    'DIRECTIVES': {
+        'default-src': ("'self'",),
+        'script-src': (
+            "'self'",
+            "'unsafe-inline'",
+            'https://js.stripe.com',
+            'https://www.youtube.com',
+            'https://www.gstatic.com',
+        ),
+        'connect-src': (
+            "'self'",
+            'https://www.youtube.com',
+            'https://www.google.com',
+        ),
+        'frame-src': (
+            "'self'",
+            'https://www.youtube.com',
+            'https://www.youtube-nocookie.com',
+            'https://checkout.stripe.com',
+        ),
+        'child-src': (
+            "'self'",
+            'https://www.youtube.com',
+            'https://www.youtube-nocookie.com',
+        ),
+        'img-src': (
+            "'self'",
+            'https://rvosqmvsgmcuaujkphhr.supabase.co',
+            'https://images.unsplash.com',
+            'https://i.ytimg.com',
+            'data:',
+        ),
+        'media-src': (
+            "'self'",
+            'https://rvosqmvsgmcuaujkphhr.supabase.co',
+        ),
+    }
+}
 
 # HTTPS/SSL Settings (uncomment in production with SSL)
 # SECURE_SSL_REDIRECT = True

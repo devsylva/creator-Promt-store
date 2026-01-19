@@ -5,7 +5,7 @@
 
 const MEDIA = {
   heroImage: "",
-  demoVideoEmbed: "https://www.youtube.com/embed/E9ZXlauxCYE",
+  demoVideoEmbed: "https://www.youtube.com/embed/E9ZXlauxCYE?si=TrV-1zM4pXkmIIem",
   demoVideoFile: "",
   demoVideoThumbnail: "",
   toolkitImage: "https://rvosqmvsgmcuaujkphhr.supabase.co/storage/v1/object/public/SUITCASE/IMAGE%20SUITCASE/79eeff69-d4ff-4348-a66f-2ca38c1a88bc_4096x3058.png",
@@ -185,12 +185,9 @@ function renderImage(slot, imageUrl, type) {
 }
 
 function renderVideoEmbed(slot, embedUrl) {
-  // Ensure we're using the nocookie version for better privacy and compatibility
-  let finalEmbedUrl = embedUrl;
-  if (embedUrl.includes('youtube.com/embed/')) {
-    finalEmbedUrl = embedUrl.replace('youtube.com', 'youtube-nocookie.com');
-  }
-  
+  // Use provided embed URL (keep youtube.com domain to avoid 150/153 errors on restricted videos)
+  const finalEmbedUrl = embedUrl;
+
   slot.innerHTML = `
     <div style="position: relative; width: 100%; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 28px; box-shadow: 0 24px 70px rgba(0,0,0,0.10), 0 10px 28px rgba(0,0,0,0.06);">
       <iframe
