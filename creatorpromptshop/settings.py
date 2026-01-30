@@ -171,11 +171,13 @@ CONTENT_SECURITY_POLICY = {
             'https://www.youtube.com',
             'https://www.youtube-nocookie.com',
             'https://checkout.stripe.com',
+            'https://js.stripe.com',
         ),
         'child-src': (
             "'self'",
             'https://www.youtube.com',
             'https://www.youtube-nocookie.com',
+            'https://js.stripe.com',
         ),
         'img-src': (
             "'self'",
