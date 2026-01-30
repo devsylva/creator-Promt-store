@@ -782,8 +782,130 @@ img {
   background: #f4fff7;
 }
 
+/* Checkout overlay steps */
+.checkout-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  z-index: 2000;
+}
+
+.checkout-overlay.is-hidden {
+  display: none;
+}
+
+.checkout-overlay__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+}
+
+.checkout-overlay__modal {
+  position: relative;
+  z-index: 1;
+  width: min(92vw, 560px);
+  background: #fff;
+  border-radius: var(--radius-lg);
+  padding: 28px 24px 24px;
+  box-shadow: var(--shadow-medium);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.checkout-overlay__close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+  color: var(--color-text-muted);
+}
+
+.checkout-overlay__close:hover {
+  color: var(--color-text);
+}
+
+.checkout-steps__progress {
+  width: 100%;
+  height: 6px;
+  background: #efe9dd;
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+}
+
+.checkout-steps__progress-bar {
+  display: block;
+  height: 100%;
+  width: 33%;
+  background: linear-gradient(90deg, #111 0%, #444 100%);
+  transition: width var(--transition-slow);
+}
+
+.checkout-step {
+  display: none;
+  background: #fffdf8;
+  border: 1px solid #e2ddd1;
+  border-radius: var(--radius-md);
+  padding: 16px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+
+.checkout-step.is-active {
+  display: block;
+}
+
+.checkout-step__header {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+.checkout-step__badge {
+  background: #111;
+  color: #fff;
+  border-radius: var(--radius-pill);
+  padding: 4px 10px;
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.checkout-step__title {
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin-bottom: 4px;
+}
+
+.checkout-step__hint {
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
+}
+
+.checkout-step__body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.checkout-overlay-open {
+  overflow: hidden;
+}
+
 @media (max-width: 640px) {
   .newsletter-gate__row {
     grid-template-columns: 1fr;
+  }
+
+  .checkout-overlay__modal {
+    padding: 24px 18px 18px;
   }
 }

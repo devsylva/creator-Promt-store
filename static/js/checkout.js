@@ -28,64 +28,66 @@
 
   function createGateElement() {
     const wrapper = document.createElement('div');
-    wrapper.className = 'newsletter-gate newsletter-steps';
+    wrapper.className = 'checkout-overlay is-hidden';
     wrapper.innerHTML = [
-      '<div class="newsletter-steps__progress" aria-hidden="true">',
-      '  <span class="newsletter-steps__progress-bar" data-progress></span>',
-      '</div>',
-      '<div class="newsletter-step" data-step="1" data-state="active">',
-      '  <div class="newsletter-step__header">',
-      '    <div class="newsletter-step__badge">Step 1</div>',
-      '    <div>',
-      '      <p class="newsletter-step__title">Start verification</p>',
-      '      <p class="newsletter-step__hint">30s – we email you the unlock code.</p>',
-      '    </div>',
-      '    <button type="button" class="newsletter-step__action" data-action="start">Begin</button>',
+      '<div class="checkout-overlay__backdrop" data-close></div>',
+      '<div class="checkout-overlay__modal" role="dialog" aria-modal="true" aria-labelledby="checkout-title">',
+      '  <button type="button" class="checkout-overlay__close" aria-label="Close" data-close>×</button>',
+      '  <div class="checkout-steps__progress" aria-hidden="true">',
+      '    <span class="checkout-steps__progress-bar" data-progress></span>',
       '  </div>',
-      '  <div class="newsletter-step__body" data-body-step="1" hidden>',
-      '    <div class="newsletter-gate__row">',
-      '      <input type="text" class="newsletter-gate__input" name="name" placeholder="Your name" autocomplete="name" />',
-      '      <select class="newsletter-gate__input" name="country">',
-      '        <option value="">Country</option>',
-      '      </select>',
+      '  <div class="checkout-step" data-step="1">',
+      '    <div class="checkout-step__header">',
+      '      <span class="checkout-step__badge">Step 1</span>',
+      '      <div>',
+      '        <h2 class="checkout-step__title" id="checkout-title">Start verification</h2>',
+      '        <p class="checkout-step__hint">We’ll email you a 4‑digit unlock code.</p>',
+      '      </div>',
       '    </div>',
-      '    <div class="newsletter-gate__row">',
-      '      <input type="email" class="newsletter-gate__input" name="email" placeholder="Email address" autocomplete="email" />',
-      '      <button type="button" class="newsletter-gate__btn" data-action="send">Send code</button>',
-      '    </div>',
-      '  </div>',
-      '</div>',
-      '<div class="newsletter-step" data-step="2" data-state="locked">',
-      '  <div class="newsletter-step__header">',
-      '    <div class="newsletter-step__badge">Step 2</div>',
-      '    <div>',
-      '      <p class="newsletter-step__title">Enter the 4 digits</p>',
-      '      <p class="newsletter-step__hint">Check your inbox or spam.</p>',
+      '    <div class="checkout-step__body">',
+      '      <div class="newsletter-gate__row">',
+      '        <input type="text" class="newsletter-gate__input" name="name" placeholder="Your name" autocomplete="name" />',
+      '        <select class="newsletter-gate__input" name="country">',
+      '          <option value="">Country</option>',
+      '        </select>',
+      '      </div>',
+      '      <div class="newsletter-gate__row">',
+      '        <input type="email" class="newsletter-gate__input" name="email" placeholder="Email address" autocomplete="email" />',
+      '        <button type="button" class="newsletter-gate__btn" data-action="send">Send code</button>',
+      '      </div>',
       '    </div>',
       '  </div>',
-      '  <div class="newsletter-step__body" data-body-step="2" hidden>',
-      '    <div class="newsletter-gate__row">',
-      '      <input type="text" maxlength="4" class="newsletter-gate__input" name="otp" placeholder="Enter 4-digit code" inputmode="numeric" />',
-      '      <button type="button" class="newsletter-gate__btn" data-action="verify">Verify email</button>',
+      '  <div class="checkout-step" data-step="2">',
+      '    <div class="checkout-step__header">',
+      '      <span class="checkout-step__badge">Step 2</span>',
+      '      <div>',
+      '        <h2 class="checkout-step__title">Enter the 4 digits</h2>',
+      '        <p class="checkout-step__hint">Check your inbox or spam folder.</p>',
+      '      </div>',
+      '    </div>',
+      '    <div class="checkout-step__body">',
+      '      <div class="newsletter-gate__row">',
+      '        <input type="text" maxlength="4" class="newsletter-gate__input" name="otp" placeholder="Enter 4-digit code" inputmode="numeric" />',
+      '        <button type="button" class="newsletter-gate__btn" data-action="verify">Verify email</button>',
+      '      </div>',
       '    </div>',
       '  </div>',
-      '</div>',
-      '<div class="newsletter-step" data-step="3" data-state="locked">',
-      '  <div class="newsletter-step__header">',
-      '    <div class="newsletter-step__badge">Step 3</div>',
-      '    <div>',
-      '      <p class="newsletter-step__title">Finish checkout</p>',
-      '      <p class="newsletter-step__hint">Unlocks after email is verified.</p>',
+      '  <div class="checkout-step" data-step="3">',
+      '    <div class="checkout-step__header">',
+      '      <span class="checkout-step__badge">Step 3</span>',
+      '      <div>',
+      '        <h2 class="checkout-step__title">Finish checkout</h2>',
+      '        <p class="checkout-step__hint">You’re all set — complete your payment.</p>',
+      '      </div>',
+      '    </div>',
+      '    <div class="checkout-step__body">',
+      '      <button type="button" class="btn-pill btn-pill--full" data-action="continue">Continue to Stripe</button>',
       '    </div>',
       '  </div>',
-      '  <div class="newsletter-step__body" data-body-step="3" hidden>',
-      '    <p class="newsletter-step__summary">Checkout unlocks automatically once Step 2 is done.</p>',
-      '  </div>',
-      '</div>',
-      '<p class="newsletter-gate__status" aria-live="polite"></p>'
+      '  <p class="newsletter-gate__status" aria-live="polite"></p>',
+      '</div>'
     ].join('');
 
-    // populate the country select after building the HTML
     const countrySelect = wrapper.querySelector('select[name="country"]');
     if (countrySelect) {
       COUNTRIES.forEach(c => {
@@ -99,21 +101,16 @@
     return {
       wrapper,
       progressBar: wrapper.querySelector('[data-progress]'),
-      startBtn: wrapper.querySelector('[data-action="start"]'),
       nameInput: wrapper.querySelector('input[name="name"]'),
       countryInput: wrapper.querySelector('input[name="country"], select[name="country"]'),
       emailInput: wrapper.querySelector('input[name="email"]'),
       otpInput: wrapper.querySelector('input[name="otp"]'),
       sendBtn: wrapper.querySelector('[data-action="send"]'),
       verifyBtn: wrapper.querySelector('[data-action="verify"]'),
-      otpRow: wrapper.querySelector('[data-body-step="2"]'),
+      continueBtn: wrapper.querySelector('[data-action="continue"]'),
       statusEl: wrapper.querySelector('.newsletter-gate__status'),
-      stepBodies: {
-        1: wrapper.querySelector('[data-body-step="1"]'),
-        2: wrapper.querySelector('[data-body-step="2"]'),
-        3: wrapper.querySelector('[data-body-step="3"]')
-      },
-      steps: wrapper.querySelectorAll('.newsletter-step')
+      closeBtns: wrapper.querySelectorAll('[data-close]'),
+      steps: wrapper.querySelectorAll('.checkout-step')
     };
   }
 
@@ -123,39 +120,37 @@
   }
 
   function disableInputs(el, disabled) {
-    [el.startBtn, el.nameInput, el.countryInput, el.emailInput, el.otpInput, el.sendBtn, el.verifyBtn].forEach(node => {
+    [el.nameInput, el.countryInput, el.emailInput, el.otpInput, el.sendBtn, el.verifyBtn, el.continueBtn].forEach(node => {
       if (node) {
         node.disabled = disabled;
       }
     });
   }
 
-  function setStepState(el, stepNumber, state) {
-    const step = el.wrapper.querySelector('.newsletter-step[data-step="' + stepNumber + '"]');
-    if (!step) return;
-    step.dataset.state = state;
-  }
-
-  function revealStepBody(el, stepNumber) {
-    const body = el.stepBodies[stepNumber];
-    if (body) {
-      body.hidden = false;
-    }
-  }
-
-  function hideStepBody(el, stepNumber) {
-    const body = el.stepBodies[stepNumber];
-    if (body) {
-      body.hidden = true;
-    }
-  }
-
   function updateProgress(el, currentStep) {
     if (!el.progressBar) return;
-    const percentages = { 0: 12, 1: 33, 2: 66, 3: 100 };
-    const percent = percentages[currentStep] || 12;
+    const percentages = { 1: 33, 2: 66, 3: 100 };
+    const percent = percentages[currentStep] || 33;
     el.progressBar.style.width = percent + '%';
     el.progressBar.dataset.step = String(currentStep);
+  }
+
+  function setActiveStep(el, stepNumber) {
+    el.steps.forEach(step => {
+      const isActive = step.getAttribute('data-step') === String(stepNumber);
+      step.classList.toggle('is-active', isActive);
+    });
+    updateProgress(el, stepNumber);
+  }
+
+  function openOverlay(el) {
+    el.wrapper.classList.remove('is-hidden');
+    document.body.classList.add('checkout-overlay-open');
+  }
+
+  function closeOverlay(el) {
+    el.wrapper.classList.add('is-hidden');
+    document.body.classList.remove('checkout-overlay-open');
   }
 
   async function sendOtp(el) {
@@ -200,10 +195,7 @@
       }
 
       setStatus(el.statusEl, 'Code sent. Check your email for the 4 digits.', 'success');
-      revealStepBody(el, 2);
-      setStepState(el, 1, 'completed');
-      setStepState(el, 2, 'active');
-      updateProgress(el, 2);
+      setActiveStep(el, 2);
       el.otpInput.focus();
       disableInputs(el, false);
       return email;
@@ -242,45 +234,12 @@
       }
 
       setStatus(el.statusEl, 'Email verified. Checkout unlocked.', 'success');
-      disableInputs(el, true);
+      disableInputs(el, false);
       return email;
     } catch (err) {
       setStatus(el.statusEl, 'Network error. Please retry.', 'error');
       disableInputs(el, false);
       return false;
-    }
-  }
-
-  function wireGate(el, onVerified) {
-    el.sendBtn.addEventListener('click', async () => {
-      const email = await sendOtp(el);
-      if (email) {
-        el.currentEmail = email;
-      }
-    });
-
-    el.verifyBtn.addEventListener('click', async () => {
-      const email = await verifyOtp(el);
-      if (email) {
-        el.wrapper.classList.add('newsletter-gate--verified');
-        setStepState(el, 2, 'completed');
-        setStepState(el, 3, 'active');
-        revealStepBody(el, 3);
-        updateProgress(el, 3);
-        persistVerifiedEmail(email);
-        onVerified(email);
-      }
-    });
-  }
-
-  function updateCheckoutButton(checkoutBtn, verifiedEmail) {
-    if (!checkoutBtn) return;
-    if (verifiedEmail) {
-      checkoutBtn.disabled = false;
-      checkoutBtn.textContent = 'Finish checkout';
-    } else {
-      checkoutBtn.disabled = true;
-      checkoutBtn.textContent = 'Step 3: checkout (locked)';
     }
   }
 
@@ -304,49 +263,13 @@
 
     const stripe = Stripe(stripePublicKey);
     const gate = createGateElement();
-    checkoutBtn.parentElement.insertBefore(gate.wrapper, checkoutBtn);
-
-    setStepState(gate, 1, 'active');
-    hideStepBody(gate, 1);
-    hideStepBody(gate, 2);
-    hideStepBody(gate, 3);
-    updateProgress(gate, 0);
+    document.body.appendChild(gate.wrapper);
 
     let verifiedEmail = loadVerifiedEmail();
-    if (verifiedEmail) {
-      setStatus(gate.statusEl, `Verified as ${verifiedEmail}. You can checkout.`, 'success');
-      gate.wrapper.classList.add('newsletter-gate--verified');
-      setStepState(gate, 1, 'completed');
-      setStepState(gate, 2, 'completed');
-      setStepState(gate, 3, 'active');
-      revealStepBody(gate, 3);
-      updateProgress(gate, 3);
-      disableInputs(gate, true);
-    }
 
-    updateCheckoutButton(checkoutBtn, verifiedEmail);
-
-    gate.startBtn.addEventListener('click', () => {
-      revealStepBody(gate, 1);
-      setStepState(gate, 1, 'active');
-      updateProgress(gate, verifiedEmail ? 3 : 1);
-      gate.nameInput.focus();
-    });
-
-    wireGate(gate, (email) => {
-      verifiedEmail = email;
-      updateCheckoutButton(checkoutBtn, verifiedEmail);
-    });
-
-    checkoutBtn.addEventListener('click', async function() {
-      if (!verifiedEmail) {
-        gate.wrapper.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        setStatus(gate.statusEl, 'Please verify your newsletter email to continue.', 'error');
-        return;
-      }
-
-      checkoutBtn.disabled = true;
-      checkoutBtn.textContent = 'Redirecting…';
+    const startCheckout = async () => {
+      gate.continueBtn.disabled = true;
+      gate.continueBtn.textContent = 'Redirecting…';
 
       try {
         const response = await fetch('/api/checkout-session/', {
@@ -363,7 +286,8 @@
         const data = await response.json();
         if (data.error) {
           setStatus(gate.statusEl, data.error, 'error');
-          updateCheckoutButton(checkoutBtn, verifiedEmail);
+          gate.continueBtn.disabled = false;
+          gate.continueBtn.textContent = 'Continue to Stripe';
           return;
         }
 
@@ -373,13 +297,60 @@
 
         if (result.error) {
           setStatus(gate.statusEl, result.error.message, 'error');
-          updateCheckoutButton(checkoutBtn, verifiedEmail);
+          gate.continueBtn.disabled = false;
+          gate.continueBtn.textContent = 'Continue to Stripe';
         }
       } catch (error) {
         console.error('Error:', error);
         setStatus(gate.statusEl, 'An error occurred. Please try again.', 'error');
-        updateCheckoutButton(checkoutBtn, verifiedEmail);
+        gate.continueBtn.disabled = false;
+        gate.continueBtn.textContent = 'Continue to Stripe';
+      }
+    };
+
+    gate.closeBtns.forEach(btn => {
+      btn.addEventListener('click', () => closeOverlay(gate));
+    });
+
+    gate.sendBtn.addEventListener('click', async () => {
+      const email = await sendOtp(gate);
+      if (email) {
+        verifiedEmail = email;
       }
     });
+
+    gate.verifyBtn.addEventListener('click', async () => {
+      const email = await verifyOtp(gate);
+      if (email) {
+        verifiedEmail = email;
+        persistVerifiedEmail(email);
+        setActiveStep(gate, 3);
+      }
+    });
+
+    gate.continueBtn.addEventListener('click', () => {
+      if (!verifiedEmail) {
+        setStatus(gate.statusEl, 'Please verify your email first.', 'error');
+        setActiveStep(gate, 1);
+        return;
+      }
+      startCheckout();
+    });
+
+    checkoutBtn.addEventListener('click', () => {
+      setStatus(gate.statusEl, '', '');
+      gate.continueBtn.textContent = 'Continue to Stripe';
+      gate.continueBtn.disabled = false;
+      if (verifiedEmail) {
+        setActiveStep(gate, 3);
+      } else {
+        setActiveStep(gate, 1);
+      }
+      openOverlay(gate);
+    });
+
+    if (verifiedEmail) {
+      setStatus(gate.statusEl, `Verified as ${verifiedEmail}.`, 'success');
+    }
   };
 })();
